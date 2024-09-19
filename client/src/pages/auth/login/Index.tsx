@@ -35,6 +35,7 @@ const Login: React.FC = () => {
     if (data.token) {
       setAuth((values) => ({ ...values, isLoggedIn: true }));
       localStorage.setItem("auth_token", data.token);
+      navigate("/dashboard");
     } else {
       setError(data.error);
     }

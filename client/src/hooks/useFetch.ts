@@ -22,23 +22,20 @@ const useFetch = <T>(url: string, method: FetchMethod = "GET") => {
   const fetchData = useCallback(
     async (options: UseFetchOptions = {}) => {
       setResponse({ data: null, error: null, loading: true });
-
+      const token = localStorage.getItem("auth_token");
+      console.log(token);
       try {
-        const { body, ...restOptions } = options;
-        const fetchOptions: RequestInit = {
-          method,
-          ...restOptions,
+        const { body } = options;
+
+        const headers = {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
         };
-
-        if (body) {
-          fetchOptions.body = JSON.stringify(body);
-          fetchOptions.headers = {
-            ...fetchOptions.headers,
-            "Content-Type": "application/json",
-          };
-        }
-
-        const res = await fetch(url, fetchOptions);
+        const res = await fetch(url, {
+          body: body ? JSON.stringify(body) : null,
+          method,
+          headers,
+        });
         const data = await res.json();
         console.log(data);
 

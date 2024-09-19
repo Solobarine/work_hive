@@ -88,4 +88,9 @@ class AuthController extends Controller
             'message' => 'Logged Out Successfully'
         ]);
     }
+
+    public function user()
+    {
+        return auth()->user();
+    }
 }
