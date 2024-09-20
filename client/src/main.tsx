@@ -4,11 +4,14 @@ import "./index.css";
 import { UserContextProvider } from "./context/User.tsx";
 import { RouterProvider } from "react-router-dom";
 import routes from "./router/index.ts";
+import { TaskContextProvider } from "./context/Task.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <UserContextProvider>
-      <RouterProvider router={routes} />
+      <TaskContextProvider>
+        <RouterProvider router={routes} />
+      </TaskContextProvider>
     </UserContextProvider>
   </StrictMode>
 );
