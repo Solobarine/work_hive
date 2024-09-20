@@ -1,8 +1,10 @@
 <?php
 
+use App\Events\UpdateTask;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Event;
 
 uses(RefreshDatabase::class);
 
@@ -124,4 +126,16 @@ it('can delete a task', function () {
         ]);
 
     $this->assertDatabaseMissing('tasks', ['id' => $task->id]);
+});
+
+it('updates task status and dispatches the event', function () {
+    Event::fake();
+
+    $task = Task::factory()->create(['user_id' => $this->user->id]);
+    $this->patch("/api/tasks/{$task->id}", ['status' => 'completed'])
+        ->assertStatus(200);
+
+    Event::assertDispatched(UpdateTask::class, function ($event) use ($task) {
+        return $event->task->id === $task->id && $event->task->status === 'completed';
+    });
 });
