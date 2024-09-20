@@ -7,7 +7,6 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use PHPOpenSourceSaver\JWTAuth\Contracts\Providers\Auth;
 
 class AuthController extends Controller
 {
@@ -33,7 +32,7 @@ class AuthController extends Controller
             return response()->json([
                 'status' => false,
                 'error' => 'Invalid Email or Password'
-            ]);
+            ], 401);
         } else {
             return response()->json([
                 'status' => true,
@@ -55,7 +54,7 @@ class AuthController extends Controller
             return response()->json([
                 'status' => false,
                 'error' => $validate->errors()
-            ]);
+            ], 422);
         }
 
         $user = User::query()->where('email', $request->email)->first();
@@ -64,7 +63,7 @@ class AuthController extends Controller
             return response()->json([
                 'status' => false,
                 'error' => 'User with Email Already Exists'
-            ]);
+            ], 403);
         }
 
         User::create([
