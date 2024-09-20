@@ -54,7 +54,7 @@ it('can create a task', function () {
 it('validates task creation request', function () {
     $response = $this->postJson('/api/tasks', []);
 
-    $response->assertStatus(200)
+    $response->assertStatus(422)
         ->assertJson([
             'status' => false,
         ]);

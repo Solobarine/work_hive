@@ -3,7 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\TeamController;
 
 //Route::get('/user', function (Request $request) {
 //  return $request->user();
@@ -28,4 +30,19 @@ Route::controller(TaskController::class)->middleware("auth:api")->group(function
     Route::get('/tasks/{task}', 'show');
     Route::patch('/tasks/{task}', 'update');
     Route::delete('/tasks/{task}', 'destroy');
+});
+
+Route::controller(ProjectController::class)->middleware("auth:api")->group(function () {
+    Route::get('/projects', 'index');
+    Route::post('/projects', 'store');
+    Route::get('/projects/{project}', 'show');
+    Route::patch('/projects/{project}', 'update');
+    Route::delete('/projects/{project}', 'destroy');
+});
+
+Route::controller(TeamController::class)->middleware("auth:api")->group(function () {
+    Route::post('/teams', 'store');
+    Route::post('/teams/{team}/members', 'assignTeamMember');
+    Route::post('/teams/{team}/members/remove', 'removeTeamMember');
+    Route::delete('/teams/{team}', 'destroy');
 });
