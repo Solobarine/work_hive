@@ -1,10 +1,12 @@
 <?php
 
 use App\Events\UpdateTask;
+use App\Mail\TaskUpdated;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Mail;
 
 uses(RefreshDatabase::class);
 
@@ -137,5 +139,23 @@ it('updates task status and dispatches the event', function () {
 
     Event::assertDispatched(UpdateTask::class, function ($event) use ($task) {
         return $event->task->id === $task->id && $event->task->status === 'completed';
+    });
+});
+
+it('can send an email when task is updated', function () {
+    Mail::fake();
+
+
+    $task = Task::factory()->create([
+        'user_id' => $this->user->id
+    ]);
+
+
+    $this->patchJson("/api/tasks/{$task->id}", ['status' => 'completed'])
+        ->assertStatus(200);
+
+
+    Mail::assertSent(TaskUpdated::class, function ($mail) use ($task) {
+        return $mail->task->id === $task->id && $mail->task->status === 'completed';
     });
 });
