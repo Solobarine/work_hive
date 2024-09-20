@@ -1,50 +1,71 @@
-# React + TypeScript + Vite
+# Work Hive - Task Management Platform (Frontend)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The **Work Hive** frontend is a user-friendly interface designed to facilitate efficient task management and user authentication. Built using React and TypeScript, the platform offers a seamless user experience for organizing tasks and managing user access.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+1. **User Authentication**
 
-## Expanding the ESLint configuration
+   - Register, Login, Logout functionality for secure user access.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+2. **Task Management**
+   - Create, Read, Update, Delete (CRUD) tasks to help users manage their workflows effectively.
 
-- Configure the top-level `parserOptions` property like this:
+## Technologies
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+- **React**: A JavaScript library for building user interfaces.
+- **TypeScript**: A strongly-typed programming language that builds on JavaScript.
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## Getting Started
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+### Prerequisites
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+- Node.js >= 16.0.0
+- npm or yarn
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/work_hive_frontend.git
+   ```
+2. Navigate into the project directory:
+
+   ```bash
+   cd work_hive_frontend
+   ```
+
+3. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+   or
+
+   ```bash
+   yarn install
+   ```
+
+4. Start the development server:
+   ```bash
+   npm start
+   ```
+   or
+   ```bash
+   yarn start
+   ```
+
+The application will be available at `http://localhost:3000`.
+
+## Contributing
+
+Contributions are welcome! Please submit a pull request for any changes you would like to see.
+
+## License
+
+Work Hive is open-source and available under the [MIT License](../LICENSE).
+
+---
+
+Manage tasks and users effectively with the Work Hive frontend!
