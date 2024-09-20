@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Events\UpdateTask;
+use App\Mail\TaskUpdated;
 use App\Models\Task;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class TaskController extends Controller
@@ -91,6 +93,7 @@ class TaskController extends Controller
         $task->save();
 
         UpdateTask::dispatch($task);
+        Mail::to(auth()->user()->email)->send(new TaskUpdated($task));
 
         return response()->json([
             'status' => true,
