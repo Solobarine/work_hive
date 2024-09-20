@@ -35,7 +35,7 @@ class TaskController extends Controller
             return response()->json([
                 'status' => false,
                 'error' => $validate->errors()
-            ]);
+            ], 422);
         }
 
         $task = Task::create([
